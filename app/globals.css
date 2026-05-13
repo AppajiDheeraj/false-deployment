@@ -244,6 +244,24 @@ button {
   margin-top: 20px;
 }
 
+.legacy-badge-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.legacy-badge {
+  width: 88px;
+  height: 32px;
+  object-fit: contain;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: rgba(8, 16, 30, 0.8);
+  padding: 4px 8px;
+}
+
 .metric-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

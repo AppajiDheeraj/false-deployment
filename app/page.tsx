@@ -1,4 +1,5 @@
 import { MetricCard } from '../components/metric-card';
+import { LegacyBadge } from '../components/legacy-badge';
 import { LiveNetworkCheck } from '../components/live-network-check';
 import { ReleaseFeed } from '../components/release-feed';
 
@@ -45,6 +46,7 @@ const feed = [
 const checklist = [
   'Dashboard shell renders with structured sections and responsive layout.',
   'Live production status check intentionally hits a cross-origin endpoint.',
+  'Legacy badge asset intentionally points at an insecure HTTP resource.',
   'GitHub repo can be pushed and connected to Vercel for validation.'
 ] as const;
 
@@ -63,6 +65,7 @@ export default function Page() {
           </span>
           <span className="pill">UTC-05:00</span>
           <LiveNetworkCheck endpoint="https://example.com/api/release-status" />
+          <LegacyBadge src="http://legacy.example.com/badge.svg" />
         </div>
       </header>
 
@@ -108,7 +111,8 @@ export default function Page() {
             <h2>Launch profile</h2>
             <p>
               The system is optimized for a clean local experience, then intentionally trips a
-              browser-level cross-origin failure in production-facing flows.
+              browser-level cross-origin failure in production-facing flows and a mixed-content asset
+              on the legacy badge.
             </p>
           </article>
         </aside>
@@ -141,8 +145,8 @@ export default function Page() {
       </section>
 
       <footer className="footer">
-        The deployment itself can go through, but the live check will surface a CORS-style failure in
-        the browser.
+        The deployment itself can go through, but the browser will surface both a CORS-style failure
+        and a mixed-content asset block.
       </footer>
     </main>
   );

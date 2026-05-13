@@ -24,7 +24,7 @@ export function LiveNetworkCheck({ endpoint }: LiveNetworkCheckProps) {
         const body = await response.text();
 
         if (!cancelled) {
-          setStatus(body ? 'live channel updated' : 'live channel returned an empty payload');
+          setStatus(body ? 'live channel healthy' : 'live channel returned an empty payload');
         }
       })
       .catch(() => {

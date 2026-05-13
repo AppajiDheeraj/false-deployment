@@ -1,6 +1,6 @@
 import { MetricCard } from '../components/metric-card';
+import { LiveNetworkCheck } from '../components/live-network-check';
 import { ReleaseFeed } from '../components/release-feed';
-import { getReleaseWindow } from '../lib/release-window';
 
 const metrics = [
   {
@@ -44,13 +44,11 @@ const feed = [
 
 const checklist = [
   'Dashboard shell renders with structured sections and responsive layout.',
-  'Build path includes a production-only release guard.',
+  'Live production status check intentionally hits a cross-origin endpoint.',
   'GitHub repo can be pushed and connected to Vercel for validation.'
 ] as const;
 
 export default function Page() {
-  const releaseWindow = getReleaseWindow();
-
   return (
     <main className="shell">
       <header className="topbar">
@@ -61,9 +59,10 @@ export default function Page() {
         <div className="topbar-meta">
           <span className="pill">
             <span className="pill-dot" />
-            Release window: {releaseWindow}
+            Release window: local-preview
           </span>
           <span className="pill">UTC-05:00</span>
+          <LiveNetworkCheck endpoint="https://example.com/api/release-status" />
         </div>
       </header>
 
@@ -93,8 +92,8 @@ export default function Page() {
           <article className="panel status-panel">
             <h2>Pipeline status</h2>
             <p>
-              The interface is ready for a production push, but the build path still depends on a
-              release-window variable being present when the app is compiled for production.
+              The interface is ready for a production push, but the live status chip depends on a
+              cross-origin request that browsers will block without the proper CORS headers.
             </p>
             <div className="status-row">
               <span className="pill">
@@ -108,8 +107,8 @@ export default function Page() {
           <article className="panel status-panel">
             <h2>Launch profile</h2>
             <p>
-              The system is optimized for a clean local experience, then intentionally blocks the
-              production deployment path when the release configuration is incomplete.
+              The system is optimized for a clean local experience, then intentionally trips a
+              browser-level cross-origin failure in production-facing flows.
             </p>
           </article>
         </aside>
@@ -142,7 +141,8 @@ export default function Page() {
       </section>
 
       <footer className="footer">
-        A production build will stop when the release window is not configured.
+        The deployment itself can go through, but the live check will surface a CORS-style failure in
+        the browser.
       </footer>
     </main>
   );

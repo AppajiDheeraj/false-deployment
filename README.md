@@ -1,3 +1,3 @@
 # false-deployment
 
-Minimal project scaffold for deployment testing.
+Operational dashboard app for deployment testing.

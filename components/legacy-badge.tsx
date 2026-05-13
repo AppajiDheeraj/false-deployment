@@ -1,5 +1,7 @@
 'use client';
 
+import React, { useState } from 'react';
+
 type LegacyBadgeProps = {
   src: string;
 };
